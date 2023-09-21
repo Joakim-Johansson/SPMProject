@@ -17,6 +17,8 @@ class NEMS:
             }
         }
 
+        # Two copies, one for current state of the board (positions), the other for keeping track of structure of board,
+        # since positions will be edited
         self.positions = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "D1", "D2",
                "D3", "D4", "D5", "D6", "E1", "E2", "E3", "F1", "F2", "F3", "G1", "G2", "G3", "H1", "H2", "H3"]
         self.state = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "D1", "D2",
@@ -101,10 +103,6 @@ class NEMS:
         return False
 
     def can_reach(self, move_from, move_to):
-        # Extract the x and y coordinates from move_from and move_to
-        x_from, y_from = move_from[0], move_from[1]
-        x_to, y_to = move_to[0], move_to[1]
-
         # Check if the move is valid (one step in either x or y direction)
         for x in self.valid_moves:
             if move_to in x:
