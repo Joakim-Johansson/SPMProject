@@ -59,4 +59,3 @@ def display_board(player1, player2):
 """
 
     print(board)
-
