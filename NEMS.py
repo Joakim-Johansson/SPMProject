@@ -143,12 +143,29 @@ class NEMS:
         while True:
             player_info = self.players[current_player]
             if player_info['pieces_left'] == 0:
-                player_position_from = input(f"Player {current_player}, enter your position from: ")
-                player_position_to = input(f"Player {current_player}, enter your position to: ")
-                self.place_piece(player_position_to, player_position_from, current_player)
+                correct_input=False
+                while not correct_input:
+                    player_position_from = input(f"Player {current_player}, enter your position from: ")
+                    player_position_to = input(f"Player {current_player}, enter your position to: ")
+                    
+                    if player_position_from not in player_info['moves']:
+                        print('You do not have a piece in that position.')
+                    elif self.already_taken(player_position_to): 
+                        print('That position is already taken.')
+                    elif not self.can_reach(player_position_from, player_position_to):
+                        print('You can only move one step sideways or vertically')
+                    else:
+                        self.place_piece(player_position_to, player_position_from, current_player)
+                        correct_input=True
             else:
-                player_position_to = input(f"Player {current_player}, enter your position to: ")
-                self.place_piece(player_position_to, None, current_player)
+                correct_input=False
+                while not correct_input:
+                    player_position_to = input(f"Player {current_player}, enter your position to: ")
+                    try:
+                        self.place_piece(player_position_to, None, current_player)
+                        correct_input=True
+                    except:
+                        print("Wrong input, try again.")
 
             if self.check_mills(player_position_to, current_player):
                 removed_piece = input(f"Player {current_player}, enter opponent piece to remove: ")
