@@ -7,12 +7,12 @@ class NEMS:
         self.players = {
             1: {
                 'symbol': "X",
-                'pieces_left': 3,
+                'pieces_left': 5,
                 'moves': [] 
             },
             2: {
                 'symbol': "O",
-                'pieces_left': 3,
+                'pieces_left': 5,
                 'moves': []
             }
         }
@@ -23,7 +23,7 @@ class NEMS:
                "D3", "D4", "D5", "D6", "E1", "E2", "E3", "F1", "F2", "F3", "G1", "G2", "G3", "H1", "H2", "H3"]
         self.state = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "D1", "D2",
                "D3", "D4", "D5", "D6", "E1", "E2", "E3", "F1", "F2", "F3", "G1", "G2", "G3", "H1", "H2", "H3"]
-        self.valid_moves = [["A1", "A2", "A3"], ["B1", "B2", "B3"], ["C1", "C2", "C3"],
+        self.valid_moves = [["A1", "A2", "A3"], ["B1", "B2", "B3"], ["C1", "C2", "C3"], ["A2", "B2", "C2"],
                     ["D1", "D2", "D3"], ["D4", "D5", "D6"], ["E1", "E2", "E3"],
                     ["F1", "F2", "F3"], ["G1", "G2", "G3"], ["A1", "D1", "G1"],
                     ["B1", "D2", "F1"], ["C1", "D3", "E1"], ["C3", "D4", "E3"],
@@ -135,7 +135,6 @@ class NEMS:
 
         self.positions[placement] = player_info['symbol']
 
-        print(self.display_board(green_color + "X" + reset_color, red_color + "O" + reset_color))
         return True
 
     def play(self):
@@ -176,6 +175,7 @@ class NEMS:
                 print(f"Player {current_player} wins!")
                 break
 
+            print(self.display_board(green_color + "X" + reset_color, red_color + "O" + reset_color))
             current_player = 3 - current_player
 
 if __name__ == "__main__":
