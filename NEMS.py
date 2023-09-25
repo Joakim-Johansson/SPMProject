@@ -8,7 +8,7 @@ class NEMS:
             1: {
                 'symbol': "X",
                 'pieces_left': 3,
-                'moves': []
+                'moves': [] 
             },
             2: {
                 'symbol': "O",
@@ -26,8 +26,8 @@ class NEMS:
         self.valid_moves = [["A1", "A2", "A3"], ["B1", "B2", "B3"], ["C1", "C2", "C3"],
                     ["D1", "D2", "D3"], ["D4", "D5", "D6"], ["E1", "E2", "E3"],
                     ["F1", "F2", "F3"], ["G1", "G2", "G3"], ["A1", "D1", "G1"],
-                    ["B1", "C1", "E1"], ["C1", "D1", "E1"], ["C3", "D1", "E1"],
-                    ["B3", "D2", "E3"], ["A3", "D3", "G3"], ["E2", "F2", "G2"]]
+                    ["B1", "D2", "F1"], ["C1", "D3", "E1"], ["C3", "D4", "E3"],
+                    ["B3", "D5", "F3"], ["A3", "D6", "G3"], ["E2", "F2", "G2"]]
 
     def display_board(self, player1, player2):
         # Create the formatted strings for Player 1 and Player 2
@@ -35,22 +35,14 @@ class NEMS:
         formatted_player2 = f" Player 2  ({player2})"
 
         # Create the game pieces here
-        player1_pieces = f"{green_color}X{reset_color}" + " " * 5
-        player2_pieces = f"{red_color}O{reset_color}" + " " * 5
+        player1_pieces = f"{green_color}{self.players[1]['symbol']}{reset_color} " * self.players[1]['pieces_left']
+        player2_pieces = f"{red_color}{self.players[2]['symbol']}{reset_color} " * self.players[2]['pieces_left']
 
         # Create the game board here
         game_board = f"""
-    {' ' * 10}{formatted_player1}{' ' * 58}{formatted_player2}
-
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
-    {'      ' + player1_pieces + ' ' * 65}{player2_pieces}
+    
+    Player 1 pieces ({self.players[1]["pieces_left"]}): {player1_pieces} \n
+    Player 2 pieces ({self.players[2]["pieces_left"]}): {player2_pieces}
 
     {self.positions[0]}________________________________________ {self.positions[1]} _______________________________________ {self.positions[2]}
     |                                          |                                         |                    
@@ -78,6 +70,10 @@ class NEMS:
 
     """
 
+        # Replace symbols with colored symbols
+        game_board = game_board.replace(self.players[1]['symbol'], green_color + self.players[1]['symbol'] + reset_color)
+        game_board = game_board.replace(self.players[2]['symbol'], red_color + self.players[2]['symbol'] + reset_color)
+
         return game_board
 
     def already_taken(self, position):
@@ -87,6 +83,10 @@ class NEMS:
         return False
 
     def remove_piece(self, position, player):
+        if self.already_taken(position):
+            self.positions[self.state.index(position)] = position
+            self.players[player]['moves'].remove(position)
+        
         pass
     
 
@@ -169,6 +169,8 @@ class NEMS:
 
             if self.check_mills(player_position_to, current_player):
                 removed_piece = input(f"Player {current_player}, enter opponent piece to remove: ")
+                self.remove_piece(removed_piece, 3-current_player)
+
 
             if len(self.players[3 - current_player]['moves']) + self.players[3 - current_player]['pieces_left'] == 2:
                 print(f"Player {current_player} wins!")
