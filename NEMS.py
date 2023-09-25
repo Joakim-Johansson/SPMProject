@@ -28,6 +28,7 @@ class NEMS:
                     ["F1", "F2", "F3"], ["G1", "G2", "G3"], ["A1", "D1", "G1"],
                     ["B1", "D2", "F1"], ["C1", "D3", "E1"], ["C3", "D4", "E3"],
                     ["B3", "D5", "F3"], ["A3", "D6", "G3"], ["E2", "F2", "G2"]]
+        print(self.display_board(green_color + "X" + reset_color, red_color + "O" + reset_color))
 
     def display_board(self, player1, player2):
         # Create the formatted strings for Player 1 and Player 2
@@ -86,9 +87,7 @@ class NEMS:
         if self.already_taken(position):
             self.positions[self.state.index(position)] = position
             self.players[player]['moves'].remove(position)
-        
-        pass
-    
+            
 
     # Check if 3 in a row
     def check_mills(self, position, player):
@@ -170,12 +169,11 @@ class NEMS:
                 removed_piece = input(f"Player {current_player}, enter opponent piece to remove: ")
                 self.remove_piece(removed_piece, 3-current_player)
 
-
+            print(self.display_board(green_color + "X" + reset_color, red_color + "O" + reset_color))
             if len(self.players[3 - current_player]['moves']) + self.players[3 - current_player]['pieces_left'] == 2:
                 print(f"Player {current_player} wins!")
                 break
 
-            print(self.display_board(green_color + "X" + reset_color, red_color + "O" + reset_color))
             current_player = 3 - current_player
 
 if __name__ == "__main__":
