@@ -157,6 +157,7 @@ class NEMS:
                         print('You can only move one step sideways or vertically')
                     else:
                         self.place_piece(player_position_to, player_position_from, current_player)
+                        print("oh")
                         correct_input=True
             else:
                 correct_input=False
@@ -164,19 +165,19 @@ class NEMS:
                     player_position_to = input(f"Player {current_player}, enter your position to: ")
 
                     if player_position_to.lower() == 'f':
-                     print("Quitting the game.")
-                    return  # Exit the play() function and the game
-                try:
-                    self.place_piece(player_position_to, None, current_player)
-                    correct_input = True
-                except:
-                    print("Wrong input, try again.")
+                        print("Quitting the game.")
+                        return  # Exit the play() function and the game
+                    try:
+                        self.place_piece(player_position_to, None, current_player)
+                        correct_input = True
+                    except:
+                        print("Wrong input, try again.")
 
-                    #try:
-                        #self.place_piece(player_position_to, None, current_player)
-                        #correct_input=True
-                    #except:
-                      # print("Wrong input, try again.")
+                        #try:
+                            #self.place_piece(player_position_to, None, current_player)
+                            #correct_input=True
+                        #except:
+                        # print("Wrong input, try again.")
 
             if self.check_mills(player_position_to, current_player):
                 removed_piece = input(f"Player {current_player}, enter opponent piece to remove: ")
