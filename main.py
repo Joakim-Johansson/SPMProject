@@ -1,5 +1,6 @@
 import os
 
+
 # Define ANSI escape codes for red and green text
 red_color = "\033[91m"   # Red color escape code
 green_color = "\033[92m" # Green color escape code
@@ -9,6 +10,7 @@ from instructions import get_instructions  # Import the function from instructio
 from title_display import display_title  # Import the function from title_display.py
 from menu_display import display_menu  # Import the function from menu_display.py
 from board_display import display_board # Import the board from board_display.py
+from NEMS import NEMS  # Import the NEMS.py
 
 
 def clear_screen():  
@@ -17,11 +19,15 @@ def clear_screen():
 def play_game():
     clear_screen()
     print("Let's play NEMS!")
+     # Create an instance of the NEMS class
+    game = NEMS()
 
     # Call the display_board function with player names to display the game board
     display_board(green_color + "X" + reset_color, red_color + "O" + reset_color)  # Pass the player names without extra formatting
-    # Add your game logic here
-    input("Press Enter to return to the main menu...")
+    input("Press Enter to play the game ...")
+     # Call the play method to start the game
+    game.play()
+
 
 def display_instructions():
     clear_screen()
