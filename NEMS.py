@@ -1,6 +1,7 @@
 red_color = "\033[91m"   # Red color escape code
 green_color = "\033[92m" # Green color escape code
 reset_color = "\033[0m"  # Reset color escape code
+import time
 
 class NEMS:
     def __init__(self):
@@ -137,8 +138,18 @@ class NEMS:
         return True
     def play(self):
         current_player = 1
-        moves_left = 300  # Set the initial move limit
-        while moves_left > 0:  # Check if there are moves left
+        moves_left = 300
+
+        time_limit_input = input("Enter the time limit in seconds (default is 10 minutes, press Enter to use default): ")
+
+        if time_limit_input.strip():
+            time_limit = int(time_limit_input)
+        else:
+            time_limit = 600  # Default time limit is 10 minutes (600 seconds)
+
+        start_time = time.time() 
+
+        while moves_left > 0:  
             player_info = self.players[current_player]
             if player_info['pieces_left'] == 0:
                 correct_input = False
@@ -186,8 +197,13 @@ class NEMS:
             current_player = 3 - current_player
             moves_left -= 1  # Decrement the move limit
 
-        # Game ended due to reaching the move limit
-        print("The game has ended in a draw due to reaching the move limit.")
+            # Check if the time limit has been reached
+            elapsed_time = time.time() - start_time
+            if elapsed_time > time_limit:
+                print("Time limit exceeded. The game is ending.")
+                break
+
+        print("The game has ended due to time limit or move limit")
 
 
 if __name__ == "__main__":
