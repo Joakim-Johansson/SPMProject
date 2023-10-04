@@ -9,7 +9,6 @@ reset_color = "\033[0m"  # Reset color escape code
 from instructions import get_instructions  # Import the function from instructions.py
 from title_display import display_title  # Import the function from title_display.py
 from menu_display import display_menu  # Import the function from menu_display.py
-from board_display import display_board # Import the board from board_display.py
 from NEMS import NEMS  # Import the NEMS.py
 
 
@@ -23,7 +22,6 @@ def play_game():
     game = NEMS()
 
     # Call the display_board function with player names to display the game board
-    display_board(green_color + "X" + reset_color, red_color + "O" + reset_color)  # Pass the player names without extra formatting
     input("Press Enter to play the game ...")
      # Call the play method to start the game
     game.play()

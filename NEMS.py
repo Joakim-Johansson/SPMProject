@@ -42,8 +42,8 @@ class NEMS:
         # Create the game board here
         game_board = f"""
     
-    Player 1 pieces ({self.players[1]["pieces_left"]}): {player1_pieces} \n
-    Player 2 pieces ({self.players[2]["pieces_left"]}): {player2_pieces}
+    Player 1 pieces (Total: {len(self.players[1]["moves"])+self.players[1]["pieces_left"]}): {player1_pieces} \n
+    Player 2 pieces (Total: {len(self.players[1]["moves"])+self.players[1]["pieces_left"]}): {player2_pieces}
 
     {self.positions[0]}________________________________________ {self.positions[1]} _______________________________________ {self.positions[2]}
     |                                          |                                         |                    
