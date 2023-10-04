@@ -8,12 +8,12 @@ class NEMS:
         self.players = {
             1: {
                 'symbol': "X",
-                'pieces_left': 5,
+                'pieces_left': 9,
                 'moves': [] 
             },
             2: {
                 'symbol': "O",
-                'pieces_left': 5,
+                'pieces_left': 9,
                 'moves': []
             }
         }
