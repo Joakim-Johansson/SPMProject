@@ -135,32 +135,32 @@ class NEMS:
         self.positions[placement] = player_info['symbol']
 
         return True
-
     def play(self):
         current_player = 1
-        while True:
+        moves_left = 300  # Set the initial move limit
+        while moves_left > 0:  # Check if there are moves left
             player_info = self.players[current_player]
             if player_info['pieces_left'] == 0:
-                correct_input=False
+                correct_input = False
                 while not correct_input:
                     player_position_from = input(f"Player {current_player}, enter your position from: ")
                     player_position_to = input(f"Player {current_player}, enter your position to: ")
-                    
+
                     if player_position_to.lower() == 'f':
-                         print("Quitting the game.")
-                         return  # Exit the play() function and the game
+                        print("Quitting the game.")
+                        return  # Exit the play() function and the game
                     elif player_position_from not in player_info['moves']:
                         print('You do not have a piece in that position.')
-                    elif self.already_taken(player_position_to): 
+                    elif self.already_taken(player_position_to):
                         print('That position is already taken.')
                     elif not self.can_reach(player_position_from, player_position_to):
                         print('You can only move one step sideways or vertically')
                     else:
                         self.place_piece(player_position_to, player_position_from, current_player)
                         print("oh")
-                        correct_input=True
+                        correct_input = True
             else:
-                correct_input=False
+                correct_input = False
                 while not correct_input:
                     player_position_to = input(f"Player {current_player}, enter your position to: ")
 
@@ -173,22 +173,22 @@ class NEMS:
                     except:
                         print("Wrong input, try again.")
 
-                        #try:
-                            #self.place_piece(player_position_to, None, current_player)
-                            #correct_input=True
-                        #except:
-                        # print("Wrong input, try again.")
-
             if self.check_mills(player_position_to, current_player):
                 removed_piece = input(f"Player {current_player}, enter opponent piece to remove: ")
-                self.remove_piece(removed_piece, 3-current_player)
+                self.remove_piece(removed_piece, 3 - current_player)
 
             print(self.display_board(green_color + "X" + reset_color, red_color + "O" + reset_color))
+
             if len(self.players[3 - current_player]['moves']) + self.players[3 - current_player]['pieces_left'] == 2:
                 print(f"Player {current_player} wins!")
                 break
 
             current_player = 3 - current_player
+            moves_left -= 1  # Decrement the move limit
+
+        # Game ended due to reaching the move limit
+        print("The game has ended in a draw due to reaching the move limit.")
+
 
 if __name__ == "__main__":
     game = NEMS()

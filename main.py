@@ -20,7 +20,6 @@ def play_game():
     print("Let's play NEMS!")
      # Create an instance of the NEMS class
     game = NEMS()
-
     # Call the display_board function with player names to display the game board
     input("Press Enter to play the game ...")
      # Call the play method to start the game
